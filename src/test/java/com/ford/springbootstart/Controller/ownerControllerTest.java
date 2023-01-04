@@ -21,8 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@WebMvcTest(controller.class)
-class controllerTest {
+@WebMvcTest(OwnerController.class)
+class ownerControllerTest {
 
     @Autowired
     private MockMvc mockMvc;

@@ -12,11 +12,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/product")
-public class controller {
+public class OwnerController {
 
     private final ProductService productService;
 
-    public controller(ProductService productService) {
+    public OwnerController(ProductService productService) {
         this.productService = productService;
     }
 
