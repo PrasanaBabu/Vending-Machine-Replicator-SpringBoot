@@ -1,0 +1,1 @@
+CREATE TABLE products(product_id INT auto_increment, product_cost Double Precision, product_quantity INT, product_name VARCHAR(20));
