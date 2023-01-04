@@ -1,5 +1,6 @@
 package com.ford.springbootstart.Controller;
 import static org.hamcrest.Matchers.containsString;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -43,16 +44,31 @@ class ownerControllerTest {
         mockMvc.perform(get("/product/all")).andDo(print()).andExpect(status().isOk()).andExpect(content().string(containsString("Test Product")));
     }
     @Test
-    public void shouldReturnSuccess() throws Exception {
+    public void shouldReturnSuccessWhenNewProductAdded() throws Exception {
         List<Product> testProducts = new ArrayList<>();
         testProducts.add(new Product(1, 10.0, 5, "Test Product"));
         when(productService.getProducts()).thenReturn(testProducts);
-        String JsonTestBodyString = "{ \"pId\":1, \"pCost\":10.0, \"quantity\":5, \"name\":\"Test Product\"}";
+        String JsonTestBodyString = "{ " +
+                        "\"pId\":1, " +
+                        "\"pCost\":10.0," +
+                        " \"quantity\":5, " +
+                        "\"name\":\"Test Product\"" +
+                        "}";
         mockMvc.perform(post("/product/new").contentType(MediaType.APPLICATION_JSON)
                 .content(JsonTestBodyString)
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("success")));
+    }
+
+    @Test
+    public void shouldReturnCorrectProductWhenIdGiven() throws Exception {
+        when(productService.getProductById(1)).thenReturn(new Product(1, 10.0, 5, "Test Product"));
+
+        mockMvc.perform(get("/product/1"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString(("Test Product"))));
     }
 }
