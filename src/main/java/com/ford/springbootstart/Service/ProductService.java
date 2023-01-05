@@ -136,4 +136,41 @@ public class ProductService {
     public String getBalance() {
         return String.valueOf(Balance.getBalance());
     }
+
+    public String showScreenMessage() {
+        List<Product> allProducts = getProducts();
+        StringBuilder finalOutput = new StringBuilder();
+
+        addProductsToFinalOutput(allProducts, finalOutput);
+
+        setBalanceAndChangeToFinalOutput(finalOutput);
+
+
+        return String.valueOf(finalOutput);
+    }
+    private static void setBalanceAndChangeToFinalOutput(StringBuilder finalOutput) {
+        finalOutput.append("Balance : ").append(Balance.getBalance());
+        finalOutput.append(System.lineSeparator());
+
+        finalOutput.append("Change : ").append(Change.getCoins());
+        finalOutput.append(System.lineSeparator());
+    }
+
+    private static void addProductsToFinalOutput(List<Product> allProducts, StringBuilder finalOutput) {
+        String productBanner = "---Products---";
+
+
+        String separatorBanner = "--------------";
+        finalOutput.append(productBanner);
+        finalOutput.append(System.lineSeparator());
+
+        for (Product p : allProducts){
+            finalOutput.append(p);
+            finalOutput.append(System.lineSeparator());
+        }
+
+        finalOutput.append(separatorBanner);
+        finalOutput.append(System.lineSeparator());
+    }
+
 }
