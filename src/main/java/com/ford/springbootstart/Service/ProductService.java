@@ -73,8 +73,9 @@ public class ProductService {
         }
     }
 
-    public void deleteProduct(int id) {
+    public String deleteProduct(int id) {
         productRepo.deleteById(id);
+        return "Successfully Deleted";
     }
 
 
