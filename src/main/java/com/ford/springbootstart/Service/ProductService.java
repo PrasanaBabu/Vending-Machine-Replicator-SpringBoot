@@ -79,17 +79,19 @@ public class ProductService {
     }
 
 
-    public void processingInsertedCoin(Coin coin) {
+    public String processingInsertedCoin(Coin coin) {
         CoinValueGenerator coinValueGenerator = new CoinValueGeneratorImpl();
         double valueOfCoin = coinValueGenerator.provideValue(coin);
 
         if(inValidCoin(valueOfCoin)){
             Change.push(coin);
+            return "Invalid Coin added";
         }
         else {
             Acceptor acceptor = new AcceptorImpl();
             Double newBalance = acceptor.addBalance(valueOfCoin);
             Displayer.setCurrentDisplay("Current Balance = " + newBalance);
+            return "Coin Inserted";
         }
     }
     private static boolean inValidCoin(double valueOfCoin) {
@@ -129,5 +131,9 @@ public class ProductService {
     public String greet() {
 
         return "Hello";
+    }
+
+    public String getBalance() {
+        return String.valueOf(Balance.getBalance());
     }
 }

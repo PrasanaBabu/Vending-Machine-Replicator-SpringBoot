@@ -65,13 +65,12 @@ public class UserController {
 
     @PostMapping("/insertcoin")
     public String addCoin(@RequestBody Coin coin){
-        productService.processingInsertedCoin(coin);
-        return "Inserted success";
+        return productService.processingInsertedCoin(coin);
     }
 
     @GetMapping("/balance")
     public String getBalance(){
-        return String.valueOf(Balance.getBalance());
+        return productService.getBalance();
     }
 
     @PatchMapping("/buy/{id}")
