@@ -33,8 +33,8 @@ public class ProductService {
         return productRepo.findAll();
     }
 
-    public void insertProduct(Product product){
-        productRepo.save(product);
+    public Product insertProduct(Product product){
+        return productRepo.save(product);
     }
 
     public Product getProductById(int id) {
@@ -111,8 +111,7 @@ public class ProductService {
             }
         }
 
-        List<Coin> coinsToReturn = Change.pop();
-        return coinsToReturn;
+        return Change.pop();
     }
 
     private static Coin[] getCoins() {
@@ -128,10 +127,10 @@ public class ProductService {
         return new int[]{QUARTER_VALUE, DIME_VALUE, NICKEL_VALUE, PENNY_VALUE};
     }
 
-    public String greet() {
-
-        return "Hello";
-    }
+//    public String greet() {
+//
+//        return "Hello";
+//    }
 
     public String getBalance() {
         return String.valueOf(Balance.getBalance());

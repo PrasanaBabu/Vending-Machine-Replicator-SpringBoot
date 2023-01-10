@@ -16,10 +16,10 @@ public class UserController {
         this.productService = productService;
     }
 
-    @GetMapping("/test")
-    public String test(){
-        return productService.greet();
-    }
+//    @GetMapping("/test")
+//    public String test(){
+//        return productService.greet();
+//    }
     @GetMapping("/screen")
     public String screen(){
         return productService.showScreenMessage();

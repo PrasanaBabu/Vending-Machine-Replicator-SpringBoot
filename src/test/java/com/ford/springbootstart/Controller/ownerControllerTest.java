@@ -29,14 +29,14 @@ class ownerControllerTest {
     @MockBean
     private ProductService productService;
 
-    @Test
-    public void shouldReturnSomething() throws Exception {
-        when(productService.greet()).thenReturn("Hello");
-        this.mockMvc
-                .perform(get("/product/test"))
-                .andDo(print())
-                .andExpect(content().string(containsString("Hello")));
-    }
+//    @Test
+//    public void shouldReturnSomething() throws Exception {
+//        when(productService.greet()).thenReturn("Hello");
+//        this.mockMvc
+//                .perform(get("/product/test"))
+//                .andDo(print())
+//                .andExpect(content().string(containsString("Hello")));
+//    }
 
     @Test
     public void shouldReturnAllProducts() throws Exception {

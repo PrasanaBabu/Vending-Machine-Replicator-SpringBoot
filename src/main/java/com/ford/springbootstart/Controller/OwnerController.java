@@ -20,10 +20,10 @@ public class OwnerController {
         this.productService = productService;
     }
 
-    @GetMapping("/test")
-    public String test(){
-        return productService.greet();
-    }
+//    @GetMapping("/test")
+//    public String test(){
+//        return productService.greet();
+//    }
 
 
     @GetMapping("/{id}")

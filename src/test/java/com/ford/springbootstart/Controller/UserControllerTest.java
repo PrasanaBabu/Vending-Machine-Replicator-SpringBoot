@@ -2,6 +2,9 @@ package com.ford.springbootstart.Controller;
 
 import com.ford.springbootstart.Entity.Coin;
 import com.ford.springbootstart.Entity.Product;
+import com.ford.springbootstart.Exceptions.InsufficientBalanceException;
+import com.ford.springbootstart.Exceptions.NoSuchProductException;
+import com.ford.springbootstart.Exceptions.OutOfStockException;
 import com.ford.springbootstart.Service.ProductService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +30,14 @@ class UserControllerTest {
     @MockBean
     private ProductService productService;
 
-    @Test
-    public void shouldReturnSomething() throws Exception {
-        when(productService.greet()).thenReturn("Hello");
-        this.mockMvc
-                .perform(get("/machine/test"))
-                .andDo(print())
-                .andExpect(content().string(containsString("Hello")));
-    }
+//    @Test
+//    public void shouldReturnSomething() throws Exception {
+//        when(productService.greet()).thenReturn("Hello");
+//        this.mockMvc
+//                .perform(get("/machine/test"))
+//                .andDo(print())
+//                .andExpect(content().string(containsString("Hello")));
+//    }
 
 
     @Test
@@ -45,6 +48,36 @@ class UserControllerTest {
                 .perform(patch("/machine/buy/1"))
                 .andDo(print())
                 .andExpect(content().string(containsString("Enjoy")));
+    }
+    @Test
+    public void callDispatchForBuyWithInsufficientBalance() throws Exception{
+        Product testProductToDispatch = new Product(1, 10.0, 5, "Test Product");
+        when(productService.dispatchProduct(1)).thenThrow(new InsufficientBalanceException("Insufficient Balance"));
+
+        this.mockMvc
+                .perform(patch("/machine/buy/1"))
+                .andDo(print())
+                .andExpect(content().string(containsString("Insufficient Balance")));
+    }
+    @Test
+    public void callDispatchForBuyWithOutOfStockProduct() throws Exception{
+        Product testProductToDispatch = new Product(1, 10.0, 5, "Test Product");
+        when(productService.dispatchProduct(1)).thenThrow(new OutOfStockException("Out of Stock Product"));
+
+        this.mockMvc
+                .perform(patch("/machine/buy/1"))
+                .andDo(print())
+                .andExpect(content().string(containsString("Out of Stock Product")));
+    }
+    @Test
+    public void callDispatchForBuyInvalidProduct() throws Exception{
+        Product testProductToDispatch = new Product(1, 10.0, 5, "Test Product");
+        when(productService.dispatchProduct(1)).thenThrow(new NoSuchProductException("Invalid Product"));
+
+        this.mockMvc
+                .perform(patch("/machine/buy/1"))
+                .andDo(print())
+                .andExpect(content().string(containsString("Invalid Product")));
     }
 
     @Test
